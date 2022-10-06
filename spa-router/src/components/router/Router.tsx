@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { RouteProps } from './Route';
 
 export interface RouterProps {
@@ -7,7 +7,13 @@ export interface RouterProps {
 
 function Router(props: RouterProps) {
   const { children } = props;
-  const { pathname } = window.location;
+  const [pathname, setPathname] = useState(window.location.pathname);
+
+  useEffect(() => {
+    window.onpopstate = () => {
+      setPathname(window.location.pathname);
+    };
+  }, []);
 
   const childrenProps = (React.Children.toArray(children) as ReactElement<RouteProps>[]).map((child) => child.props);
 
@@ -19,6 +25,7 @@ function Router(props: RouterProps) {
         return component;
       }
     }
+    return '404 Error';
   })();
 
   return <>{component}</>;
