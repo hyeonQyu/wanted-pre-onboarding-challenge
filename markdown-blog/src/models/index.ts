@@ -1,10 +1,9 @@
-import { MarkdownAttributes } from '@defines/index';
+import { Markdown } from '@defines/index';
 
 export interface PostsResponse {
-  posts: string[];
+  posts: Markdown[];
 }
 
 export interface PostResponse {
-  attributes: MarkdownAttributes;
-  body: string;
+  post: Markdown;
 }

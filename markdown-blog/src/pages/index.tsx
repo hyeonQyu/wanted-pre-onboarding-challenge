@@ -1,10 +1,11 @@
 import { GetStaticProps } from 'next';
-import { server } from '../env';
+import { server } from '@env/index';
 import Link from 'next/link';
 import { PostsResponse } from '@models/index';
+import { Markdown } from '@defines/index';
 
 export interface IndexProps {
-  posts: string[];
+  posts: Markdown[];
 }
 
 function Index(props: IndexProps) {
@@ -14,10 +15,10 @@ function Index(props: IndexProps) {
     <>
       <div>
         <ul>
-          {posts.map((post) => (
-            <li key={post}>
-              <Link href={`/${post}`}>
-                <a>{posts}</a>
+          {posts.map(({ id, attributes: { title, description, date } }) => (
+            <li key={id}>
+              <Link href={`/${id}`}>
+                <a>{title}</a>
               </Link>
             </li>
           ))}

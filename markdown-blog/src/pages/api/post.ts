@@ -2,19 +2,17 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import * as fs from 'fs';
 import { PostResponse } from '@models/index';
-const fm = require('front-matter');
+import fm from 'front-matter';
+import { MarkdownAttributes } from '@defines/index';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<PostResponse>) {
   const {
     query: { id },
   } = req;
 
-  const post = fs.readFileSync(`${process.cwd()}/__posts/${id}.md`, 'utf8');
-
-  const { attributes, body } = fm(post);
+  const { attributes, body } = fm<MarkdownAttributes>(fs.readFileSync(`${process.cwd()}/__posts/${id}.md`, 'utf8'));
 
   res.status(200).json({
-    attributes,
-    body,
+    post: { attributes, body },
   });
 }
