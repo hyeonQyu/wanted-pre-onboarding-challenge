@@ -1,12 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
 import * as fs from 'fs';
+import { PostsResponse } from '@models/index';
 
-type Data = {
-  posts: string[];
-};
-
-export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
+export default function handler(req: NextApiRequest, res: NextApiResponse<PostsResponse>) {
   const mdExtension = '.md';
 
   const posts = fs
