@@ -6,7 +6,6 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css" />
-          <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js" />
         </Head>
         <body>
           <Main />
