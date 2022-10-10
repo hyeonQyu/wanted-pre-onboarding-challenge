@@ -30,7 +30,6 @@ function Index(props: IndexProps) {
 
   useEffect(() => {
     contentRef.current?.querySelectorAll('pre code').forEach((element) => {
-      console.log(element);
       hljs.highlightElement(element as HTMLElement);
     });
   }, [content]);
