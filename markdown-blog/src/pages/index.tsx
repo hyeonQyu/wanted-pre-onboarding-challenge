@@ -29,20 +29,28 @@ function Index(props: IndexProps) {
       </main>
 
       <style jsx>{`
-        main {
-          padding: 20px;
-        }
-
         h1 {
           font-size: 36px;
           font-weight: bold;
           color: #212529;
           text-align: center;
+          margin: 0;
         }
 
         ul {
           width: fit-content;
           margin: 54px auto 0;
+        }
+
+        li {
+          list-style: none;
+        }
+
+        a {
+          text-decoration: none;
+        }
+        a:active {
+          color: inherit;
         }
       `}</style>
     </>

@@ -1,22 +1,74 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { PostService } from '@services/postService';
 import { Markdown } from '@defines/index';
+import Tag from '../../components/tag/tag';
+import useMarkdown from '@hooks/useMarkdown';
+import { useEffect, useState } from 'react';
 
-export interface IndexProps extends Markdown {
-  id: string;
+export interface IndexProps {
+  post: Markdown;
 }
 
 function Index(props: IndexProps) {
-  const { id, attributes, body } = props;
+  const {
+    post: {
+      attributes: { title, date, tags },
+      body,
+    },
+  } = props;
+  const { getHtml } = useMarkdown();
+  const [content, setContent] = useState('');
+
+  useEffect(() => {
+    (async () => {
+      setContent(await getHtml(body));
+    })();
+  }, [body]);
 
   return (
     <>
-      <div>
-        {id}
-        {body}
-      </div>
+      <main>
+        <article>
+          <h1>{title}</h1>
+          <div className={'date'}>{date}</div>
+          <div className={'tags'}>
+            {tags.map((tag, i) => (
+              <Tag key={i}>{tag}</Tag>
+            ))}
+          </div>
+          <div className={'content'} dangerouslySetInnerHTML={{ __html: content }} />
+        </article>
+      </main>
 
-      <style jsx>{``}</style>
+      <style jsx>{`
+        article {
+          width: 800px;
+          margin: 0 auto;
+        }
+
+        h1 {
+          font-size: 36px;
+          font-weight: bold;
+          color: #212529;
+        }
+
+        .date {
+          margin-top: 24px;
+          font-size: 14px;
+          color: #868e96;
+        }
+
+        .tags {
+          margin-top: 24px;
+          display: flex;
+          gap: 14px;
+          flex-wrap: wrap;
+        }
+
+        .content {
+          margin-top: 44px;
+        }
+      `}</style>
     </>
   );
 }
@@ -27,7 +79,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: {
-      id,
       post,
     },
   };

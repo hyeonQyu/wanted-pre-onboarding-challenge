@@ -16,8 +16,8 @@ function PostPreview(props: PostPreviewProps) {
         <h2>{title}</h2>
         <p>{description}</p>
         <div className={'tags'}>
-          {tags.map((tag) => (
-            <Tag>{tag}</Tag>
+          {tags.map((tag, i) => (
+            <Tag key={i}>{tag}</Tag>
           ))}
         </div>
         <div className={'date'}>{date}</div>
