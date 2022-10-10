@@ -2,6 +2,7 @@ import { GetStaticProps } from 'next';
 import Link from 'next/link';
 import { Markdown } from '@defines/index';
 import { PostService } from '@services/postService';
+import PostPreview from '../components/post-preview/postPreview';
 
 export interface IndexProps {
   posts: Markdown[];
@@ -12,19 +13,38 @@ function Index(props: IndexProps) {
 
   return (
     <>
-      <div>
+      <main>
+        <h1>글 목록</h1>
         <ul>
-          {posts.map(({ id, attributes: { title, description, date } }) => (
+          {posts.map(({ id, attributes }) => (
             <li key={id}>
               <Link href={`/${id}`}>
-                <a>{title}</a>
+                <a>
+                  <PostPreview attributes={attributes} />
+                </a>
               </Link>
             </li>
           ))}
         </ul>
-      </div>
+      </main>
 
-      <style jsx>{``}</style>
+      <style jsx>{`
+        main {
+          padding: 20px;
+        }
+
+        h1 {
+          font-size: 36px;
+          font-weight: bold;
+          color: #212529;
+          text-align: center;
+        }
+
+        ul {
+          width: fit-content;
+          margin: 54px auto 0;
+        }
+      `}</style>
     </>
   );
 }
