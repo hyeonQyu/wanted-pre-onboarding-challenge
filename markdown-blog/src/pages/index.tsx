@@ -2,7 +2,7 @@ import { GetStaticProps } from 'next';
 import Link from 'next/link';
 import { Markdown } from '@defines/index';
 import { PostService } from '@services/postService';
-import PostPreview from '../components/post-preview/postPreview';
+import PostPreview from '@components/post-preview/postPreview';
 
 export interface IndexProps {
   posts: Markdown[];

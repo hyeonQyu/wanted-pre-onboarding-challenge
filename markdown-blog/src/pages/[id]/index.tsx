@@ -1,9 +1,9 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { PostService } from '@services/postService';
 import { Markdown } from '@defines/index';
-import Tag from '../../components/tag/tag';
 import useMarkdown from '@hooks/useMarkdown';
 import { useEffect, useState } from 'react';
+import Tag from '@components/tag/tag';
 
 export interface IndexProps {
   post: Markdown;
