@@ -1,8 +1,7 @@
 import { GetStaticProps } from 'next';
-import { server } from '@env/index';
 import Link from 'next/link';
-import { PostsResponse } from '@models/index';
 import { Markdown } from '@defines/index';
+import { PostService } from '@services/postService';
 
 export interface IndexProps {
   posts: Markdown[];
@@ -31,7 +30,7 @@ function Index(props: IndexProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { posts }: PostsResponse = await (await fetch(`${server}/api/posts`)).json();
+  const posts = PostService.getPosts();
 
   return {
     props: {

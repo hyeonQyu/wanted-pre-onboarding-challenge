@@ -1,16 +1,13 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { PostResponse, PostsResponse } from '@models/index';
-import { server } from '@env/index';
+import { PostService } from '@services/postService';
+import { Markdown } from '@defines/index';
 
-export interface IndexProps extends PostResponse {
+export interface IndexProps extends Markdown {
   id: string;
 }
 
 function Index(props: IndexProps) {
-  const {
-    id,
-    post: { attributes, body },
-  } = props;
+  const { id, attributes, body } = props;
 
   return (
     <>
@@ -26,7 +23,7 @@ function Index(props: IndexProps) {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const id = params?.id || '';
-  const { post }: PostResponse = await (await fetch(`${server}/api/post?id=${id}`)).json();
+  const post = PostService.getPost(id as string);
 
   return {
     props: {
@@ -37,7 +34,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { posts }: PostsResponse = await (await fetch(`${server}/api/posts`)).json();
+  const posts = PostService.getPosts();
 
   return {
     paths: posts.map((post) => ({ params: { id: post.id } })),

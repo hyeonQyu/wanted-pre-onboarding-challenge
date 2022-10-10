@@ -22,14 +22,11 @@
       "@hooks/*": [
         "./hooks/*"
       ],
-      "@models/*": [
-        "./models/*"
-      ],
-      "@env/*": [
-        "./env/*"
-      ],
       "@defines/*": [
         "./defines/*"
+      ],
+      "@services/*": [
+        "./services/*"
       ]
     }
   },
