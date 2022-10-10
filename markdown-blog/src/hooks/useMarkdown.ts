@@ -8,7 +8,7 @@ export interface IUseMarkdown {
 
 function useMarkdown(): IUseMarkdown {
   const getHtml = async (md: string): Promise<string> => {
-    return (await unified().use(remarkParse).use(remarkHtml).process(md)).value.toString();
+    return (await unified().use(remarkParse).use(remarkHtml, { sanitize: false }).process(md)).value.toString();
   };
 
   return {

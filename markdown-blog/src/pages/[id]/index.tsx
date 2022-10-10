@@ -2,9 +2,10 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { PostService } from '@services/postService';
 import { Markdown } from '@defines/index';
 import useMarkdown from '@hooks/useMarkdown';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Tag from '@components/tag/tag';
 import Head from 'next/head';
+import hljs from 'highlight.js';
 
 export interface IndexProps {
   post: Markdown;
@@ -19,12 +20,20 @@ function Index(props: IndexProps) {
   } = props;
   const { getHtml } = useMarkdown();
   const [content, setContent] = useState('');
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     (async () => {
       setContent(await getHtml(body));
     })();
   }, [body]);
+
+  useEffect(() => {
+    contentRef.current?.querySelectorAll('pre code').forEach((element) => {
+      console.log(element);
+      hljs.highlightElement(element as HTMLElement);
+    });
+  }, [content]);
 
   return (
     <>
@@ -41,7 +50,7 @@ function Index(props: IndexProps) {
               <Tag key={i}>{tag}</Tag>
             ))}
           </div>
-          <div className={'content'} dangerouslySetInnerHTML={{ __html: content }} />
+          <div className={'content'} dangerouslySetInnerHTML={{ __html: content }} ref={contentRef} />
         </article>
       </main>
 

@@ -15,3 +15,16 @@ title: hello
 
 ## 예시입니다
 - 예시입니다
+
+```javascript
+const a = 12;
+console.log('hi');
+```
+
+```java
+public class Cls {
+    public void fn() {
+        System.out.println("안녕하세요");
+    }
+}
+```
