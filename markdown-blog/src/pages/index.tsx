@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Markdown } from '@defines/index';
 import { PostService } from '@services/postService';
 import PostPreview from '@components/post-preview/postPreview';
+import Head from 'next/head';
 
 export interface IndexProps {
   posts: Markdown[];
@@ -13,6 +14,10 @@ function Index(props: IndexProps) {
 
   return (
     <>
+      <Head>
+        <title>글 목록</title>
+      </Head>
+
       <main>
         <h1>글 목록</h1>
         <ul>

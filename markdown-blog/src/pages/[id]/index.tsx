@@ -4,6 +4,7 @@ import { Markdown } from '@defines/index';
 import useMarkdown from '@hooks/useMarkdown';
 import { useEffect, useState } from 'react';
 import Tag from '@components/tag/tag';
+import Head from 'next/head';
 
 export interface IndexProps {
   post: Markdown;
@@ -27,6 +28,10 @@ function Index(props: IndexProps) {
 
   return (
     <>
+      <Head>
+        <title>{title}</title>
+      </Head>
+
       <main>
         <article>
           <h1>{title}</h1>
