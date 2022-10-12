@@ -6,7 +6,7 @@ export interface PostsResponse {
   posts: Markdown[];
 }
 
-export default (req: NextApiRequest, res: NextApiResponse) => {
+export default (req: NextApiRequest, res: NextApiResponse<PostsResponse>) => {
   const posts = PostService.getPosts();
   res.status(200).json({ posts });
 };
