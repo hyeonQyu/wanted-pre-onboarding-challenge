@@ -10,16 +10,10 @@ export default (req: NextApiRequest, res: NextApiResponse<PostResponse>) => {
   const { id } = req.query;
 
   if (!id || typeof id !== 'string') {
-    res.status(400);
+    res.status(400).end();
     return;
   }
 
   const post = PostService.getPost(id);
-
-  if (!post) {
-    res.status(500);
-    return;
-  }
-
   res.status(200).json({ post });
 };

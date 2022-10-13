@@ -17,12 +17,7 @@ export namespace PostService {
   }
 
   export function getPost(id: string): Markdown {
-    try {
-      const { attributes, body } = fm<MarkdownAttributes>(fs.readFileSync(`${process.cwd()}/${postsDir}/${id}${mdExtension}`, 'utf8'));
-      return { id, attributes, body };
-    } catch (e) {
-      console.error(e);
-      return null;
-    }
+    const { attributes, body } = fm<MarkdownAttributes>(fs.readFileSync(`${process.cwd()}/${postsDir}/${id}${mdExtension}`, 'utf8'));
+    return { id, attributes, body };
   }
 }

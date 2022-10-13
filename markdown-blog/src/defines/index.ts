@@ -6,8 +6,8 @@ export interface MarkdownAttributes {
   tags: string[];
 }
 
-export type Markdown = {
+export interface Markdown {
   id: string;
   attributes: MarkdownAttributes;
   body: string;
-} | null;
+}
