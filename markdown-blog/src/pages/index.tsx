@@ -22,6 +22,7 @@ function Index(props: IndexProps) {
     },
     { fallback },
   );
+
   const posts = data?.posts || [];
 
   return (

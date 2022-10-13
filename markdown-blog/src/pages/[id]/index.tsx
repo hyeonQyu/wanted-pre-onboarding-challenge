@@ -1,23 +1,41 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { PostService } from '@services/postService';
-import { Markdown } from '@defines/index';
 import useMarkdown from '@hooks/useMarkdown';
 import { useEffect, useRef, useState } from 'react';
 import Tag from '@components/tag/tag';
 import Head from 'next/head';
 import hljs from 'highlight.js';
+import { SwrKey } from '@defines/swrKey';
+import { PostResponse } from '../api/post';
+import useSwr from 'swr';
+import { useRouter } from 'next/router';
 
 export interface IndexProps {
-  post: Markdown;
+  fallback: {
+    [SwrKey.API_POST]: PostResponse;
+  };
 }
 
 function Index(props: IndexProps) {
+  const { fallback } = props;
+  const router = useRouter();
+  const { query } = router;
+
+  const { data } = useSwr<PostResponse>(
+    SwrKey.API_POST,
+    async (url) => {
+      return (await fetch(`${url}?id=${query.id}`)).json();
+    },
+    { fallback },
+  );
+
   const {
     post: {
       attributes: { title, date, tags },
       body,
     },
-  } = props;
+  } = data as PostResponse;
+
   const { getHtml } = useMarkdown();
   const [content, setContent] = useState('');
   const contentRef = useRef<HTMLDivElement>(null);
@@ -92,7 +110,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: {
-      post,
+      fallback: {
+        [SwrKey.API_POST]: { post },
+      },
     },
   };
 };
