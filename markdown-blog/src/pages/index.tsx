@@ -1,37 +1,51 @@
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
-import { Markdown } from '@defines/index';
 import { PostService } from '@services/postService';
 import PostPreview from '@components/post-preview/postPreview';
 import Head from 'next/head';
+import useSwr, { SWRConfig } from 'swr';
+import { PostsResponse } from './api/posts';
+import { SwrKey } from '@defines/swrKey';
 
 export interface IndexProps {
-  posts: Markdown[];
+  fallback: {
+    [SwrKey.API_POSTS]: PostsResponse;
+  };
 }
 
 function Index(props: IndexProps) {
-  const { posts } = props;
+  const { fallback } = props;
+  const { data } = useSwr<PostsResponse>(
+    SwrKey.API_POSTS,
+    async (url) => {
+      return (await fetch(url)).json();
+    },
+    { fallback },
+  );
+  const posts = data?.posts || [];
 
   return (
     <>
-      <Head>
-        <title>글 목록</title>
-      </Head>
+      <SWRConfig value={{ fallback }}>
+        <Head>
+          <title>글 목록</title>
+        </Head>
 
-      <main>
-        <h1>글 목록</h1>
-        <ul>
-          {posts.map(({ id, attributes }) => (
-            <li key={id}>
-              <Link href={`/${id}`}>
-                <a>
-                  <PostPreview attributes={attributes} />
-                </a>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </main>
+        <main>
+          <h1>글 목록</h1>
+          <ul>
+            {posts.map(({ id, attributes }) => (
+              <li key={id}>
+                <Link href={`/${id}`}>
+                  <a>
+                    <PostPreview attributes={attributes} />
+                  </a>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </main>
+      </SWRConfig>
 
       <style jsx>{`
         h1 {
@@ -67,7 +81,9 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      posts,
+      fallback: {
+        [SwrKey.API_POSTS]: { posts },
+      },
     },
   };
 };
