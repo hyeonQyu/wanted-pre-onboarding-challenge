@@ -13,6 +13,14 @@ export namespace PostService {
       .map((fileName) => {
         const id = fileName.replace(mdExtension, '');
         return getPost(id);
+      })
+      .sort(({ attributes: { date: a } }, { attributes: { date: b } }) => {
+        if (a > b) {
+          return -1;
+        } else if (a < b) {
+          return 1;
+        }
+        return 0;
       });
   }
 
