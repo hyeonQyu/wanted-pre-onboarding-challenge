@@ -15,7 +15,7 @@ export interface IndexProps {
 
 function Index(props: IndexProps) {
   const { fallback } = props;
-  const { data } = useSwr<PostsResponse>(
+  const { data, isValidating } = useSwr<PostsResponse>(
     SwrKey.API_POSTS,
     async (url) => {
       return (await fetch(url)).json();
@@ -31,6 +31,8 @@ function Index(props: IndexProps) {
         <Head>
           <title>글 목록</title>
         </Head>
+
+        {isValidating && <div className={'overlay'} />}
 
         <main>
           <h1>글 목록</h1>
@@ -71,6 +73,13 @@ function Index(props: IndexProps) {
         }
         a:active {
           color: inherit;
+        }
+
+        .overlay {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          z-index: 999999;
         }
       `}</style>
     </>
