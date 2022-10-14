@@ -1,8 +1,8 @@
-import { MarkdownAttributes } from '@defines/index';
+import { PostAttributes } from '@defines/index';
 import Tag from '@components/tag/tag';
 
 export interface PostPreviewProps {
-  attributes: MarkdownAttributes;
+  attributes: PostAttributes;
 }
 
 function PostPreview(props: PostPreviewProps) {

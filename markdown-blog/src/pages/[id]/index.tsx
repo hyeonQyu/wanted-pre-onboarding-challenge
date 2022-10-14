@@ -6,9 +6,9 @@ import Tag from '@components/tag/tag';
 import Head from 'next/head';
 import hljs from 'highlight.js';
 import { SwrKey } from '@defines/swrKey';
-import { PostResponse } from '../api/post';
 import useSwr from 'swr';
 import { useRouter } from 'next/router';
+import { PostResponse } from '@api/post';
 
 export interface IndexProps {
   fallback: {

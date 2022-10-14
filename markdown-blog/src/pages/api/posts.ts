@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Markdown } from '@defines/index';
+import { Post } from '@defines/index';
 import { PostService } from '@services/postService';
 
 export interface PostsResponse {
-  posts: Markdown[];
+  posts: Post[];
 }
 
 export default (req: NextApiRequest, res: NextApiResponse<PostsResponse>) => {

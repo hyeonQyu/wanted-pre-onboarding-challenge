@@ -1,4 +1,4 @@
-export interface MarkdownAttributes {
+export interface PostAttributes {
   title: string;
   description: string;
   date: string;
@@ -6,8 +6,8 @@ export interface MarkdownAttributes {
   tags: string[];
 }
 
-export interface Markdown {
+export interface Post {
   id: string;
-  attributes: MarkdownAttributes;
+  attributes: PostAttributes;
   body: string;
 }

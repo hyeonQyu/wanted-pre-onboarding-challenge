@@ -4,8 +4,8 @@ import { PostService } from '@services/postService';
 import PostPreview from '@components/post-preview/postPreview';
 import Head from 'next/head';
 import useSwr, { SWRConfig } from 'swr';
-import { PostsResponse } from './api/posts';
 import { SwrKey } from '@defines/swrKey';
+import { PostsResponse } from '@api/posts';
 
 export interface IndexProps {
   fallback: {

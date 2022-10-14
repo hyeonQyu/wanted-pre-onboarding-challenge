@@ -30,6 +30,9 @@
       ],
       "@components/*": [
         "./components/*"
+      ],
+      "@api/*": [
+        "./pages/api/*"
       ]
     }
   },
