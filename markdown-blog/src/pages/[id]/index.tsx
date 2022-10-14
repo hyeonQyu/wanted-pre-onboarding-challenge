@@ -9,6 +9,8 @@ import { SwrKey } from '@defines/swrKey';
 import useSwr from 'swr';
 import { useRouter } from 'next/router';
 import { PostResponse } from '@api/post';
+import Loading from '@components/loading/loading';
+import { HEADER_HEIGHT } from '@defines/index';
 
 export interface IndexProps {
   fallback: {
@@ -21,7 +23,7 @@ function Index(props: IndexProps) {
   const router = useRouter();
   const { query } = router;
 
-  const { data } = useSwr<PostResponse>(
+  const { data, isValidating } = useSwr<PostResponse>(
     SwrKey.API_POST,
     async (url) => {
       return (await fetch(`${url}?id=${query.id}`)).json();
@@ -59,19 +61,38 @@ function Index(props: IndexProps) {
       </Head>
 
       <main>
-        <article>
-          <h1>{title}</h1>
-          <div className={'date'}>{date}</div>
-          <div className={'tags'}>
-            {tags.map((tag, i) => (
-              <Tag key={i}>{tag}</Tag>
-            ))}
+        {isValidating ? (
+          <div className={'loading-wrapper'}>
+            <Loading size={50} />
           </div>
-          <div className={'content'} dangerouslySetInnerHTML={{ __html: content }} ref={contentRef} />
-        </article>
+        ) : (
+          <article>
+            <h1>{title}</h1>
+            <div className={'date'}>{date}</div>
+            <div className={'tags'}>
+              {tags.map((tag, i) => (
+                <Tag key={i}>{tag}</Tag>
+              ))}
+            </div>
+            <div className={'content'} dangerouslySetInnerHTML={{ __html: content }} ref={contentRef} />
+          </article>
+        )}
       </main>
 
       <style jsx>{`
+        main {
+          height: calc(100% - ${HEADER_HEIGHT}px);
+        }
+
+        .loading-wrapper {
+          width: 800px;
+          height: 100%;
+          margin: 0 auto;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
         article {
           width: 800px;
           margin: 0 auto;

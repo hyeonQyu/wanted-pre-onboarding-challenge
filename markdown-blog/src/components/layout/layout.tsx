@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import Link from 'next/link';
+import { HEADER_HEIGHT } from '@defines/index';
 
 export interface LayoutProps {
   children: ReactNode | ReactNode[];
@@ -23,18 +24,30 @@ function Layout(props: LayoutProps) {
 
       <style jsx>{`
         header {
-          padding: 20px 30px 25px;
           position: sticky;
           top: 0;
           background-color: white;
           box-shadow: 0 -4px 17px lightgrey;
           z-index: 100;
+          height: ${HEADER_HEIGHT}px;
+          box-sizing: border-box;
+          padding-bottom: 5px;
+        }
+
+        .logo {
+          display: flex;
+          align-items: center;
+          height: 100%;
         }
 
         .logo,
         section {
           max-width: 1000px;
           margin: 0 auto;
+        }
+
+        section {
+          height: calc(100% - ${HEADER_HEIGHT + HEADER_HEIGHT / 2}px);
         }
 
         h1 {

@@ -1,5 +1,12 @@
+body {
+    height: 100%;
+}
+html, body, #__next {
+    height: 100%;
+}
 main {
     padding: 60px 20px;
+    position: relative;
 }
 body {
     margin: 0;

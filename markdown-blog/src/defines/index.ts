@@ -11,3 +11,5 @@ export interface Post {
   attributes: PostAttributes;
   body: string;
 }
+
+export const HEADER_HEIGHT = 80;
