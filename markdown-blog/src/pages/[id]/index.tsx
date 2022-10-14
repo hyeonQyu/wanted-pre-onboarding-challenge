@@ -67,7 +67,7 @@ function Index(props: IndexProps) {
           </div>
         ) : (
           <article>
-            <h1>{title}</h1>
+            <h2 className={'title'}>{title}</h2>
             <div className={'date'}>{date}</div>
             <div className={'tags'}>
               {tags.map((tag, i) => (
@@ -98,7 +98,17 @@ function Index(props: IndexProps) {
           margin: 0 auto;
         }
 
-        h1 {
+        article :global(h1) {
+          display: block;
+          font-size: 2em;
+          margin-block-start: 0.67em;
+          margin-block-end: 0.67em;
+          margin-inline-start: 0;
+          margin-inline-end: 0;
+          font-weight: bold;
+        }
+
+        h2.title {
           font-size: 36px;
           font-weight: bold;
           color: #212529;
